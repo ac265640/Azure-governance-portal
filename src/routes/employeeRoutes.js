@@ -11,6 +11,11 @@ router.get(
 );
 
 router.get(
+    "/:id/resources",
+    employeeController.getEmployeeResources
+);
+
+router.get(
     "/:id",
     employeeController.getEmployeeById
 );

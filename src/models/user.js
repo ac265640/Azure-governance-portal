@@ -34,6 +34,7 @@ const User = sequelize.define(
     department: {
       type: DataTypes.STRING
     }
+
   },
   {
     timestamps: true

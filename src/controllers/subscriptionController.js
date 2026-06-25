@@ -1,6 +1,8 @@
 const db = require("../models");
+const { Op } = require("sequelize");
 
 const Subscription = db.Subscription;
+const AuditLog = db.AuditLog;
 
 /*
 |--------------------------------------------------------------------------
@@ -11,8 +13,21 @@ const Subscription = db.Subscription;
 exports.getAllSubscriptions = async (req, res) => {
     try {
 
+        const whereClause = {};
+
+        if (req.query.search) {
+
+            whereClause.name = {
+                [Op.like]:
+                    `%${req.query.search}%`
+            };
+
+        }
+
         const subscriptions =
-            await Subscription.findAll();
+            await Subscription.findAll({
+                where: whereClause
+            });
 
         res.status(200).json(subscriptions);
 
@@ -66,6 +81,14 @@ exports.createSubscription = async (req, res) => {
         const subscription =
             await Subscription.create(req.body);
 
+        await AuditLog.create({
+            action: "Created Subscription",
+            entityType: "Subscription",
+            entityId: subscription.id,
+            performedBy:
+                req.user?.email || "System"
+        });
+
         res.status(201).json(subscription);
 
     } catch (error) {
@@ -97,6 +120,14 @@ exports.updateSubscription = async (req, res) => {
 
         await subscription.update(req.body);
 
+        await AuditLog.create({
+            action: "Updated Subscription",
+            entityType: "Subscription",
+            entityId: subscription.id,
+            performedBy:
+                req.user?.email || "System"
+        });
+
         res.status(200).json(subscription);
 
     } catch (error) {
@@ -125,6 +156,14 @@ exports.deleteSubscription = async (req, res) => {
                 message: "Subscription not found"
             });
         }
+
+        await AuditLog.create({
+            action: "Deleted Subscription",
+            entityType: "Subscription",
+            entityId: subscription.id,
+            performedBy:
+                req.user?.email || "System"
+        });
 
         await subscription.destroy();
 

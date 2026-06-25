@@ -47,6 +47,11 @@ const Resource = sequelize.define(
 
     lastActivityDate: {
       type: DataTypes.DATE
+    },
+
+    ownerEmployeeId: {
+      type: DataTypes.INTEGER,
+      allowNull: true
     }
   },
   {
