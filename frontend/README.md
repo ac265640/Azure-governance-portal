@@ -1,16 +1,35 @@
-# React + Vite
+# Azure Resource Governance & Reclamation Portal - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+This is the React frontend application for the Azure Resource Governance & Reclamation Portal (ARGRP). It is powered by Vite, Material UI (MUI), and Chart.js.
 
-Currently, two official plugins are available:
+## 🚀 Getting Started
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-## React Compiler
+2. Setup environment variables:
+   Create a `.env` file in this directory and specify the API endpoint:
+   ```env
+   VITE_API_URL=http://localhost:5005/api
+   ```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+3. Run development mode:
+   ```bash
+   npm run dev
+   ```
 
-## Expanding the Oxlint configuration
+4. Build production bundle:
+   ```bash
+   npm run build
+   ```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## 📂 Frontend Structure
+
+*   `src/theme.js` - Contains the custom Material UI color palette, typography definitions, and styling overrides modeled after the official Microsoft Azure portal.
+*   `src/config/msalConfig.js` - Single sign-on client configuration for Azure Active Directory (AAD).
+*   `src/services/` - Modules representing clean API connectors (e.g. `api.js`, `dashboardService.js`, `reclamationService.js`).
+*   `src/context/AuthContext.jsx` - Manage user session state and handle mock/MSAL auth workflows.
+
+For details on the backend API integrations, schema seeding, and the full project architecture, please refer to the main [Root README.md](../README.md).
