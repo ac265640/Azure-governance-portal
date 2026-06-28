@@ -29,7 +29,7 @@ An enterprise-grade, centralized Azure governance dashboard designed to manage, 
 
 ---
 
-## 📂 Project Structure
+## 📂 Project  Structure
 
 ```text
 Azure-governance-portal/
